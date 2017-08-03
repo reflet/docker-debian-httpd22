@@ -1,0 +1,20 @@
+version: '2'
+services:
+ app:
+  image: busybox
+  container_name: 'app'
+  volumes:
+   - ./logs:/usr/local/apache2/logs
+   - ./www:/var/www/
+
+ httpd:
+  image: reflet/debian8-httpd22
+  container_name: 'httpd'
+  ports:
+   - '80:80'
+   - '443:443'
+  volumes:
+   - ./virtualhost:/usr/local/apache2/conf.d/virtualhost/
+  volumes_from:
+   - app
+
